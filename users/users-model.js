@@ -17,7 +17,8 @@ function add(newUser) {
   return db("users")
     .insert(newUser, "id")
     .then(ids => {
-      return findById(ids[0])
+      const [id] = ids;
+      return findById(id)
     })
 };
 
