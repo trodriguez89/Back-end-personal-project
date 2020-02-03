@@ -3,6 +3,19 @@ const router = require("express").Router();
 const Exercises = require("./exercises-model");
 const restricted = require("../auth/authenticate-middleware");
 
+// GET EXERCISE
+router.get("/:id", restricted, (req, res) => {
+  const id = req.params.id;
+  Exercises.getById(id)
+  .then(exercise => {
+    res.status(200).json(exercise)
+  })
+  .catch(error => {
+    console.log(error)
+    res.status(500).json({message: "Error retrieving exercise", error})
+  })
+});
+
 // UPDATE EXERCISE
 router.put("/:id", restricted, (req, res) => {
   const id = req.params.id;
